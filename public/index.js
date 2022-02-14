@@ -4,10 +4,17 @@ const cors = require('cors')
 const {shuffleCards, dealCards} = require('./controller')
 const app =express()
 
+const path = require('path')
+
+
 app.use(cors())
 app.use(express.json())
+app.use(express.static('public'))
 
-app.get('./', shuffleCards)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/main.html'))
+})
+app.get('/', shuffleCards)
 
 
 const port = process.env.PORT || process.env.SERVER_PORT
