@@ -12,6 +12,7 @@ app.use(express.json())
 app.use(express.static('public'))
 
 app.get('./', (req, res) => {
+    console.log('hello world')
     res.sendFile(path.join(__dirname, '..public/main.html'))
 })
 
