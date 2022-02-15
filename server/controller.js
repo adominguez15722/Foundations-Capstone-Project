@@ -71,48 +71,48 @@ let result = [];
 let discard = [];
 let playerOne = [];
 let dealer = [];
+let totalHand = playerOne.reduce((prev, cur) => prev.value + cur.value, 0);
+let totalDealerHand = dealer.reduce((prev, cur) => prev.value + cur.value, 0);
+
+function burnDeck()  {
+        
+    // get rid of let burn =
+    const randomInd = Math.floor(Math.random() * deckOfCards.length)
+    
+    let rand = deckOfCards[randomInd]
+    
+    
+    for (let i = 0; i < 1; i++) {
+        discard.push(rand)
+        deckOfCards.splice(randomInd, 1)
+        
+    }
+}
+
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+}
 
 module.exports = {
 
-shuffleCards: (req, res) =>{
-
-    function shuffle(array) {
-        let currentIndex = array.length,  randomIndex;
-    
-        // While there remain elements to shuffle...
-        while (currentIndex != 0) {
-    
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-    
-        // And swap it with the current element.
-        [array[currentIndex], array[randomIndex]] = [
-            array[randomIndex], array[currentIndex]];
-        }
-    
-        return array;
-    }
-    res.status(200).send(shuffle(deckOfCards))
-    },
-
 dealCards: (req, res) => {
     
-    function burnDeck()  {
-    
-        // get rid of let burn =
-       const randomInd = Math.floor(Math.random() * deckOfCards.length)
-   
-       let rand = deckOfCards[randomInd]
-   
-   
-       for (let i = 0; i < 1; i++) {
-           discard.push(rand)
-           deckOfCards.splice(randomInd, 1)
-   
-       }
-    }
-        burnDeck();
+    shuffle(deckOfCards);
+    burnDeck();
         
         for (let i = 0; i < 2; i++) {
         
@@ -130,12 +130,40 @@ dealCards: (req, res) => {
     
     },
     
-    hitMe: (req, res) => {
+hitMe: (req, res) => {
+
+    burnDeck();
         let randOne = Math.floor(Math.random() * deckOfCards.length)
         let randPlayOne = deckOfCards[randOne]
         playerOne.push(randPlayOne)
         deckOfCards.splice(randOne, 1)
-        res.status(400).send(randPlayOne)
+
+        
+        if(totalHand < 21){
+            res.status(400).send(randPlayOne)
+        } else if(totalHand = 21) {
+            res.status(400).send(alert('BlackJack!'))
+        } else{
+            res.status(400).send(alert('Bust!'))
+        }
+    },
+
+stay: (req, res) => {
+        
+    burnDeck();
+        let dealTwo = Math.floor(Math.random() * deckOfCards.length)
+        let dealerPlayTwo = deckOfCards[dealTwo]
+        dealer.push(dealerPlayTwo)
+        deckOfCards.splice(dealTwo, 1)
+        
+        
+        if(totalDealerHand < 21){
+            res.status(400).send(dealerPlayTwo)
+        } else if(totalDealerHand = 21) {
+            res.status(400).send(alert('Dealer BlackJack!'))
+        } else{
+            res.status(400).send(alert('Dealer Bust!'))
+        }
     }
 
 

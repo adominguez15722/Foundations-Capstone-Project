@@ -1,6 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
+const {dealCards, hitMe, stay} = require('../server/controller')
 const app =express()
 // const session = require('express-session')
 const { SERVER_PORT, SERVER_SECRET } = process.env
@@ -22,9 +23,9 @@ app.use(express.static('public'))
 //     }
 // }))
 app.get('/', (req, res) => {
-    // res.status(200).send(console.log('hello world'))
     res.sendFile(path.join(__dirname, '../public/main.html'))
 })
+app.get('/', dealCards)
 
 
 const port = process.env.PORT || SERVER_PORT
