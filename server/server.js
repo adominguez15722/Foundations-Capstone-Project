@@ -27,5 +27,5 @@ app.get('/', (req, res) => {
 })
 
 
-const port = SERVER_PORT || process.env.SERVER_PORT
+const port = process.env.PORT || SERVER_PORT
 app.listen(port, () => console.log(`Server serving on ${port}`))
