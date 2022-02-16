@@ -118,15 +118,15 @@ dealCards: (req, res) => {
         let randPlayOne = deckOfCards[randOne]
         playerOne.push(randPlayOne)
         deckOfCards.splice(randOne, 1)
-    // console.log(playerOne)
+
         let dealTwo = Math.floor(Math.random() * deckOfCards.length)
         let dealerPlayTwo = deckOfCards[dealTwo]
         dealer.push(dealerPlayTwo)
         deckOfCards.splice(dealTwo, 1)
         }
-        // console.log(`players hand: ${playerOne}`)
-        // console.log(`dealers hand: ${dealer}`)
-    res.status(200).send(playerOne)
+        let results = [playerOne, dealer]
+
+    res.status(200).send(results)
     
     },
     
