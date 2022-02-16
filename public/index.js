@@ -9,7 +9,7 @@ const stayBtn = document.querySelector('#stay')
 
 dealBtn.addEventListener('click', () => {
     axios
-        .get(`${baseURL}/cards`)
+        .get('/cards')
         .then(res => console.log(res.data))
         .catch(errCallback)
 })
