@@ -8,7 +8,7 @@ const histBtn = document.querySelector('#history')
 const howBtn = document.querySelector('#how')
 const playerHand = document.querySelector('#player_hand')
 const dealerHand = document.querySelector('#dealer_hand')
-
+const imageDiv = document.querySelector('#card_images')
 
 function addToScreen(dataArr) {
     playerHand.innerHTML = ""
@@ -16,7 +16,9 @@ function addToScreen(dataArr) {
     let playHand = dataArr[0]
     let dealHand = dataArr[1]
     let cardPic = document.createElement('img')
-    cardPic.src = 'https://images.unsplash.com/photo-1619869300499-c816b5dd9070?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80'
+    cardPic.src = "./images/deck_of_cards.jpeg"
+    
+    imageDiv.appendChild(cardPic)
 
 
     playerHand.textContent = `The player received the ${playHand[0].name} of ${playHand[0].type} and ${playHand[1].name} of ${playHand[1].type}.`
