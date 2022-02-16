@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
-const {dealCards, hitMe, stay} = require('../server/controller')
+const {dealCards, hitMe, stay, playAgain} = require('../server/controller')
 const app =express()
 // const session = require('express-session')
 const { SERVER_PORT, SERVER_SECRET } = process.env
@@ -28,6 +28,7 @@ app.get('/', (req, res) => {
 app.get('/cards', dealCards)
 app.get('/hit', hitMe)
 app.get('/stay', stay)
+app.get('/again', playAgain)
 
 
 const port = process.env.PORT || SERVER_PORT

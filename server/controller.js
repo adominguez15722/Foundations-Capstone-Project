@@ -72,10 +72,6 @@ let discard = [];
 let playerOne = [];
 let dealer = [];
 
-
-let totalHand = playerOne.reduce((prev, cur) => prev.value + cur.value, 0);
-let totalDealerHand = dealer.reduce((prev, cur) => prev + cur, 0);
-
 function burnDeck()  {
         
     // get rid of let burn =
@@ -122,13 +118,15 @@ dealCards: (req, res) => {
         let randPlayOne = deckOfCards[randOne]
         playerOne.push(randPlayOne)
         deckOfCards.splice(randOne, 1)
-    
+    // console.log(playerOne)
         let dealTwo = Math.floor(Math.random() * deckOfCards.length)
         let dealerPlayTwo = deckOfCards[dealTwo]
         dealer.push(dealerPlayTwo)
         deckOfCards.splice(dealTwo, 1)
         }
-    res.status(200).send(deckOfCards)
+        // console.log(`players hand: ${playerOne}`)
+        // console.log(`dealers hand: ${dealer}`)
+    res.status(200).send(playerOne)
     
     },
     
@@ -140,33 +138,54 @@ hitMe: (req, res) => {
         playerOne.push(randPlayOne)
         deckOfCards.splice(randOne, 1)
 
+        let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
         
+        console.log(playerOne)
+        console.log(totalHand)
         if(totalHand < 21){
-            res.status(200).send(randPlayOne)
-        } else if(totalHand = 21) {
-            res.status(200).send(alert('BlackJack!'))
+            res.status(200).send(playerOne)
+        } else if(totalHand === 21) {
+            res.status(200).send('Player BlackJack!')
         } else{
-            res.status(200).send(alert('Bust!'))
+            res.status(200).send('Player Bust!')
         }
     },
 
 stay: (req, res) => {
         
     burnDeck();
-        let dealTwo = Math.floor(Math.random() * deckOfCards.length)
-        let dealerPlayTwo = deckOfCards[dealTwo]
-        dealer.push(dealerPlayTwo)
-        deckOfCards.splice(dealTwo, 1)
+        
+        // console.log(totalDealerHand)
+        
+        let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
         console.log(totalDealerHand)
         
-        if(totalDealerHand < 21){
-            res.status(200).send(dealerPlayTwo)
-        } else if(totalDealerHand = 21) {
-            res.status(200).send(alert('Dealer BlackJack!'))
-        } else{
-            res.status(200).send(alert('Dealer Bust!'))
+        while(totalDealerHand < 17){
+            let dealTwo = Math.floor(Math.random() * deckOfCards.length)
+            let dealerPlayTwo = deckOfCards[dealTwo]
+            dealer.push(dealerPlayTwo)
+            deckOfCards.splice(dealTwo, 1)
         }
-    }
+        console.log(dealer)
+         if(totalDealerHand >= 17 && totalDealerHand < 21) {
+            res.status(200).send(`Dealer has ${totalDealerHand}`)
+        } else if(totalDealerHand === 21){
+            res.status(200).send(`Dealer has BlackJack!`)
+        } else{
+            res.status(200).send(`Dealer bust!`)
+        }
+    },
+
+playAgain: (req, res) => {
+    deckOfCards.push(discard)
+    deckOfCards.push(playerOne)
+    deckOfCards.push(dealer)
+    playerOne = []
+    dealer = []
+    discard = []
+
+    res.status(200).send(deckOfCards)
+}
 
 
 };

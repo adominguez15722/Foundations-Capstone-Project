@@ -33,8 +33,13 @@ stayBtn.addEventListener('click', () => {
         .catch(errCallback)
 })
 playAgainBtn.addEventListener('click', () => {
-    dealBtn.disabled = false;
+    axios
+        .get('/again')
+        .then(res => console.log(res.data))
+        .catch(errCallback)
     
+    dealBtn.disabled = false;
+    // window.location.reload();
 })
 
 const test = () => axios.get(baseURL).then(console.log('you have made it to the index js file')).catch(errCallback)
