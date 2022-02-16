@@ -71,8 +71,10 @@ let result = [];
 let discard = [];
 let playerOne = [];
 let dealer = [];
+
+
 let totalHand = playerOne.reduce((prev, cur) => prev.value + cur.value, 0);
-let totalDealerHand = dealer.reduce((prev, cur) => prev.value + cur.value, 0);
+let totalDealerHand = dealer.reduce((prev, cur) => prev + cur, 0);
 
 function burnDeck()  {
         
@@ -126,7 +128,7 @@ dealCards: (req, res) => {
         dealer.push(dealerPlayTwo)
         deckOfCards.splice(dealTwo, 1)
         }
-    res.status(400).send(deckOfCards)
+    res.status(200).send(deckOfCards)
     
     },
     
@@ -140,11 +142,11 @@ hitMe: (req, res) => {
 
         
         if(totalHand < 21){
-            res.status(400).send(randPlayOne)
+            res.status(200).send(randPlayOne)
         } else if(totalHand = 21) {
-            res.status(400).send(alert('BlackJack!'))
+            res.status(200).send(alert('BlackJack!'))
         } else{
-            res.status(400).send(alert('Bust!'))
+            res.status(200).send(alert('Bust!'))
         }
     },
 
@@ -155,14 +157,14 @@ stay: (req, res) => {
         let dealerPlayTwo = deckOfCards[dealTwo]
         dealer.push(dealerPlayTwo)
         deckOfCards.splice(dealTwo, 1)
-        
+        console.log(totalDealerHand)
         
         if(totalDealerHand < 21){
-            res.status(400).send(dealerPlayTwo)
+            res.status(200).send(dealerPlayTwo)
         } else if(totalDealerHand = 21) {
-            res.status(400).send(alert('Dealer BlackJack!'))
+            res.status(200).send(alert('Dealer BlackJack!'))
         } else{
-            res.status(400).send(alert('Dealer Bust!'))
+            res.status(200).send(alert('Dealer Bust!'))
         }
     }
 

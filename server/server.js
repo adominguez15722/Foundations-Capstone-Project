@@ -26,6 +26,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/main.html'))
 })
 app.get('/cards', dealCards)
+app.get('/hit', hitMe)
+app.get('/stay', stay)
 
 
 const port = process.env.PORT || SERVER_PORT

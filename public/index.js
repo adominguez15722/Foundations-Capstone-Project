@@ -3,6 +3,7 @@ const errCallback = err => console.log(err.response.data)
 const dealBtn = document.querySelector('#deal')
 const hitBtn = document.querySelector('#hit')
 const stayBtn = document.querySelector('#stay')
+const playAgainBtn = document.querySelector('#play-again')
 
 // const cardsCallback = ({data: cards}) => 
 
@@ -12,6 +13,28 @@ dealBtn.addEventListener('click', () => {
         .get('/cards')
         .then(res => console.log(res.data))
         .catch(errCallback)
+
+        function disable(){
+            dealBtn.disabled = true;
+        }
+        disable()
+})
+
+hitBtn.addEventListener('click', () => {
+    axios
+        .get('/hit')
+        .then(res => console.log(res.data))
+        .catch(errCallback)
+})
+stayBtn.addEventListener('click', () => {
+    axios
+        .get('/stay')
+        .then(res => console.log(res.data))
+        .catch(errCallback)
+})
+playAgainBtn.addEventListener('click', () => {
+    dealBtn.disabled = false;
+    
 })
 
 const test = () => axios.get(baseURL).then(console.log('you have made it to the index js file')).catch(errCallback)
