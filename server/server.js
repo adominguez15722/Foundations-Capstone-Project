@@ -25,7 +25,7 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/main.html'))
 })
-app.get('/', dealCards)
+app.get('cards', dealCards)
 
 
 const port = process.env.PORT || SERVER_PORT

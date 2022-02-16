@@ -4,13 +4,18 @@ const dealBtn = document.querySelector('#deal')
 const hitBtn = document.querySelector('#hit')
 const stayBtn = document.querySelector('#stay')
 
+// const cardsCallback = ({data: cards}) => 
 
 
-const dealCards = () => axios.get(baseURL).then(console.log('you have made it to the index js file')).catch(errCallback)
-// dealBtn.addEventListener('click', dealCards)
-// hitBtn.addEventListener('click', hitMe)
-// stayBtn.addEventListener('click', stay)
+dealBtn.addEventListener('click', () => {
+    axios
+        .get(`${baseURL}/cards`)
+        .then(res => console.log(res.data))
+        .catch(errCallback)
+})
 
-// console.log('hello world')
-// app.get('./', shuffleCards)
-dealCards();
+const test = () => axios.get(baseURL).then(console.log('you have made it to the index js file')).catch(errCallback)
+
+
+
+test();

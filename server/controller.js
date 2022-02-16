@@ -110,23 +110,23 @@ function shuffle(array) {
 module.exports = {
 
 dealCards: (req, res) => {
-    
-    shuffle(deckOfCards);
-    burnDeck();
+
+    // shuffle(deckOfCards);
+    // burnDeck();
         
-        for (let i = 0; i < 2; i++) {
+    //     for (let i = 0; i < 2; i++) {
         
-        let randOne = Math.floor(Math.random() * deckOfCards.length)
-        let randPlayOne = deckOfCards[randOne]
-        playerOne.push(randPlayOne)
-        deckOfCards.splice(randOne, 1)
+    //     let randOne = Math.floor(Math.random() * deckOfCards.length)
+    //     let randPlayOne = deckOfCards[randOne]
+    //     playerOne.push(randPlayOne)
+    //     deckOfCards.splice(randOne, 1)
     
-        let dealTwo = Math.floor(Math.random() * deckOfCards.length)
-        let dealerPlayTwo = deckOfCards[dealTwo]
-        dealer.push(dealerPlayTwo)
-        deckOfCards.splice(dealTwo, 1)
-        }
-    res.status(400).send(console.log('made it to the server'))
+    //     let dealTwo = Math.floor(Math.random() * deckOfCards.length)
+    //     let dealerPlayTwo = deckOfCards[dealTwo]
+    //     dealer.push(dealerPlayTwo)
+    //     deckOfCards.splice(dealTwo, 1)
+    //     }
+    res.status(400).send(deckOfCards)
     
     },
     
