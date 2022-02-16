@@ -4,9 +4,22 @@ const dealBtn = document.querySelector('#deal')
 const hitBtn = document.querySelector('#hit')
 const stayBtn = document.querySelector('#stay')
 const playAgainBtn = document.querySelector('#play-again')
+const histBtn = document.querySelector('#history')
+const howBtn = document.querySelector('#how')
 
 // const cardsCallback = ({data: cards}) => 
 
+histBtn.addEventListener('click', () => {
+    const articleOne = document.querySelector('#article')
+    articleOne.innerHTML = ""
+    articleOne.textContent = 'This is the history of blackjack'
+})
+
+howBtn.addEventListener('click', () => {
+    const articleOne = document.querySelector('#article')
+    articleOne.innerHTML = ""
+    articleOne.textContent = 'This is how to play blackjack'
+})
 
 dealBtn.addEventListener('click', () => {
     axios

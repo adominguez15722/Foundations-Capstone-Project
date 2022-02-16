@@ -5,5 +5,33 @@ body {
 }
 
 .header {
-    background-color: red;
+    overflow: hidden;
+}
+
+.header a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.header a {
+    background-color: #ddd;
+    color: black;
+}
+
+.header a.active {
+    background-color: #35654d;
+    color: white;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+article {
+    color: white;
 }
