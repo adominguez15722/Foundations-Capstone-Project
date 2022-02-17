@@ -170,17 +170,16 @@ stay: (req, res) => {
         // console.log(totalDealerHand)
         let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
         let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
-        console.log(totalDealerHand)
-        
-        do{
+        // console.log(totalDealerHand)
+        while(totalDealerHand < 17)
+        {
             let dealTwo = Math.floor(Math.random() * deckOfCards.length)
             let dealerPlayTwo = deckOfCards[dealTwo]
             dealer.push(dealerPlayTwo)
             deckOfCards.splice(dealTwo, 1)
             totalDealerHand += dealerPlayTwo.value
-            console.log(totalDealerHand)
+            // console.log(totalDealerHand)
         }
-        while(totalDealerHand < 17);
         
         let totals = [totalHand, totalDealerHand, dealer]
         // console.log(dealer)
@@ -202,7 +201,7 @@ playAgain: (req, res) => {
     dealer = []
     
 
-    res.status(200).send(deckOfCards)
+    res.sendStatus(200)
 }
 
 

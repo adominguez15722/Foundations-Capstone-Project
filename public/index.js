@@ -10,6 +10,7 @@ const playerHand = document.querySelector('#player_hand')
 const dealerHand = document.querySelector('#dealer_hand')
 const imageDiv = document.querySelector('#card_images')
 const vidSpan = document.querySelector('#dumb')
+let winCounter = 0
 
 function disableAtStart() {
     hitBtn.disabled = true;
@@ -70,31 +71,52 @@ function addToScreen(dataArr) {
 function updatePlayerTotal(dataArr) {
     let dealtCard = dataArr[0]
     let total = dealtCard.length
-    console.log(dataArr)
+    // console.log(dataArr)
     function disable(){
         hitBtn.disabled = true;
         stayBtn.disabled = true;
     }
-    if(dataArr[1] >= 21){
+    if(dataArr[1] > 21){
         disable()
+        playerHand.textContent = `You received the ${dealtCard[total - 1].name} of ${dealtCard[total - 1].type} and your new total is ${dataArr[1]}. You busted.`
+    } else{
+        playerHand.textContent = `You received the ${dealtCard[total - 1].name} of ${dealtCard[total - 1].type} and your new total is ${dataArr[1]}.`
     }
-    playerHand.textContent = `You received the ${dealtCard[total - 1].name} of ${dealtCard[total - 1].type} and your new total is ${dataArr[1]}.`
 }
 
 function updateDealerTotal(dataArr) {
     let playerCardsTotal = dataArr[0]
     let dealerCardsTotal = dataArr[1]
     let dealerCards = dataArr[2]
+    console.log(dealerCards)
     function showVid(){
         vidSpan.style.display = 'block'
     }
-  
-    playerCardsTotal = 5
-    console.log(playerCardsTotal)
+    
     if(playerCardsTotal === 5){
         showVid()
-    } 
-    // hideVid()
+    } else if(playerCardsTotal < dealerCardsTotal && dealerCardsTotal <= 21){
+        // playerHand.textContent = ""
+        dealerHand.textContent = `The dealer has ${dealerCardsTotal} and you have ${playerCardsTotal}. You lose.`
+    
+    } else if(playerCardsTotal > dealerCardsTotal && playerCardsTotal <= 21){
+        // playerHand.textContent = ""
+        dealerHand.textContent = `The dealer has ${dealerCardsTotal} and you have ${playerCardsTotal}. You win!!`
+        winCounter++
+
+    } else if(playerCardsTotal === dealerCardsTotal){
+        // playerHand.textContent = ""
+        dealerHand.textContent = `The dealer has ${dealerCardsTotal} and you have ${playerCardsTotal}. Push!`
+    
+    } else if(dealerCardsTotal > 21){
+        // playerHand.textContent = ""
+        dealerHand.textContent = `The dealer has ${dealerCardsTotal} and you have ${playerCardsTotal}. You win!!`
+        winCounter++
+
+    } else if(dealerCardsTotal === 21 && playerCardsTotal < 21){
+        // playerHand.textContent = ""
+        dealerHand.textContent = `The dealer has ${dealerCardsTotal} and you have ${playerCardsTotal}. You lose.`
+    }
 }
 
 dealBtn.addEventListener('click', () => {
@@ -109,7 +131,7 @@ dealBtn.addEventListener('click', () => {
         disable()
         hitBtn.disabled = false;
         stayBtn.disabled = false;
-        playAgainBtn.disabled = false;
+        playAgainBtn.disabled = true;
         
 })
 
@@ -118,6 +140,7 @@ hitBtn.addEventListener('click', () => {
         .get('/hit')
         .then(res => updatePlayerTotal(res.data))
         .catch(errCallback)
+        playAgainBtn.disabled = false;
 })
 stayBtn.addEventListener('click', () => {
     axios
@@ -126,6 +149,7 @@ stayBtn.addEventListener('click', () => {
         .catch(errCallback)
         hitBtn.disabled = true;
         stayBtn.disabled = true;
+        playAgainBtn.disabled = false;
 })
 playAgainBtn.addEventListener('click', () => {
     imageDiv.innerHTML = ""
