@@ -17,15 +17,47 @@ function addToScreen(dataArr) {
     let dealHand = dataArr[1]
     let cardPic = document.createElement('img')
     cardPic.src = "./images/deck_of_cards.jpeg"
-    
     imageDiv.appendChild(cardPic)
-
 
     playerHand.textContent = `The player received the ${playHand[0].name} of ${playHand[0].type} and ${playHand[1].name} of ${playHand[1].type}.`
     
-    dealerHand.textContent = `The player received the ${dealHand[0].name} of ${dealHand[0].type} and ${dealHand[1].name} of ${dealHand[1].type}.`
+    dealerHand.textContent = `The dealer received the ${dealHand[0].name} of ${dealHand[0].type} and ${dealHand[1].name} of ${dealHand[1].type}.`
 
+    if(playHand[0].name === 'Ace' && playHand[0].type === 'Clubs'){
+        let cardPic = document.createElement('img')
+        cardPic.src = "./images/aceC.jpg"
+        imageDiv.appendChild(cardPic)
+    } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Diamonds'){
+        let cardPic = document.createElement('img')
+        cardPic.src = "./images/aceD.jpg"
+        imageDiv.appendChild(cardPic)
+    } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Spades'){
+        let cardPic = document.createElement('img')
+        cardPic.src = "./images/aceS.jpg"
+        imageDiv.appendChild(cardPic)
+    } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Hearts'){
+        let cardPic = document.createElement('img')
+        cardPic.src = "./images/aceH.jpg"
+        imageDiv.appendChild(cardPic)
+    }
     
+    if(playHand[1].name === 'Ace' && playHand[1].type === 'Clubs'){
+        let cardPic = document.createElement('img')
+        cardPic.src = "./images/aceC.jpg"
+        imageDiv.appendChild(cardPic)
+    } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Diamonds'){
+        let cardPic = document.createElement('img')
+        cardPic.src = "./images/aceD.jpg"
+        imageDiv.appendChild(cardPic)
+    } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Spades'){
+        let cardPic = document.createElement('img')
+        cardPic.src = "./images/aceS.jpg"
+        imageDiv.appendChild(cardPic)
+    } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Hearts'){
+        let cardPic = document.createElement('img')
+        cardPic.src = "./images/aceH.jpg"
+        imageDiv.appendChild(cardPic)
+    }
 }
 
 dealBtn.addEventListener('click', () => {
@@ -53,6 +85,9 @@ stayBtn.addEventListener('click', () => {
         .catch(errCallback)
 })
 playAgainBtn.addEventListener('click', () => {
+    imageDiv.innerHTML = ""
+    playerHand.textContent = ""
+    dealerHand.textContent = ""
     axios
         .get('/again')
         .then(res => console.log(res.data))

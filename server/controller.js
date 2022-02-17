@@ -182,21 +182,7 @@ playAgain: (req, res) => {
     discard = []
     playerOne = []
     dealer = []
-    // console.log(deckOfCards.length)
-    // deckOfCards.push(discard)
-    // console.log(deckOfCards.length)
-    // deckOfCards.push(playerOne)
-    // console.log(deckOfCards.length)
-    // deckOfCards.push(dealer)
-    // console.log(deckOfCards.length)
-
     
-    // deckOfCards.push(discard)
-    // deckOfCards.push(playerOne)
-    // deckOfCards.push(dealer)
-    // playerOne = []
-    // dealer = []
-    // discard = []
 
     res.status(200).send(deckOfCards)
 }
