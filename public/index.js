@@ -10,6 +10,12 @@ const playerHand = document.querySelector('#player_hand')
 const dealerHand = document.querySelector('#dealer_hand')
 const imageDiv = document.querySelector('#card_images')
 
+function disableAtStart() {
+    hitBtn.disabled = true;
+    stayBtn.disabled = true;
+    playAgainBtn.disabled = true;
+}
+
 function addToScreen(dataArr) {
     playerHand.innerHTML = ""
     dealerHand.innerHTML = ""
@@ -19,7 +25,7 @@ function addToScreen(dataArr) {
     cardPic.src = "./images/deck_of_cards.jpeg"
     imageDiv.appendChild(cardPic)
 
-    playerHand.textContent = `The player received the ${playHand[0].name} of ${playHand[0].type} and ${playHand[1].name} of ${playHand[1].type}.`
+    playerHand.textContent = `You received the ${playHand[0].name} of ${playHand[0].type} and ${playHand[1].name} of ${playHand[1].type} for a total of ${playHand[0].value + playHand[1].value}.`
     
     dealerHand.textContent = `The dealer received the ${dealHand[0].name} of ${dealHand[0].type} and ${dealHand[1].name} of ${dealHand[1].type}.`
 
@@ -60,6 +66,20 @@ function addToScreen(dataArr) {
     }
 }
 
+function updatePlayerTotal(dataArr) {
+    let dealtCard = dataArr[0]
+    let total = dealtCard.length
+    console.log(dataArr)
+    function disable(){
+        hitBtn.disabled = true;
+        stayBtn.disabled = true;
+    }
+    if(dataArr[1] >= 21){
+        disable()
+    }
+    playerHand.textContent = `You received the ${dealtCard[total - 1].name} of ${dealtCard[total - 1].type} and your new total is ${dataArr[1]}.`
+}
+
 dealBtn.addEventListener('click', () => {
     axios
         .get('/cards')
@@ -70,12 +90,16 @@ dealBtn.addEventListener('click', () => {
             dealBtn.disabled = true;
         }
         disable()
+        hitBtn.disabled = false;
+        stayBtn.disabled = false;
+        playAgainBtn.disabled = false;
+        
 })
 
 hitBtn.addEventListener('click', () => {
     axios
         .get('/hit')
-        .then(res => console.log(res.data))
+        .then(res => updatePlayerTotal(res.data))
         .catch(errCallback)
 })
 stayBtn.addEventListener('click', () => {
@@ -94,7 +118,9 @@ playAgainBtn.addEventListener('click', () => {
         .catch(errCallback)
     
     dealBtn.disabled = false;
-    // window.location.reload();
+    hitBtn.disabled = true;
+    stayBtn.disabled = true;
+    playAgainBtn.disabled = true;
 })
 
 histBtn.addEventListener('click', () => {
@@ -130,8 +156,5 @@ howBtn.addEventListener('click', () => {
     
     You will win if the value of the cards in your hand are higher than the dealers or is equal to 21. If the value of your hand is lower than the dealers or cross 21 than you will lose to the dealer.`
 })
-// const test = () => axios.get(baseURL).then(console.log('you have made it to the index js file')).catch(errCallback)
 
-
-
-// test();
+disableAtStart();

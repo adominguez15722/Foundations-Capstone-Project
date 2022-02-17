@@ -139,16 +139,16 @@ hitMe: (req, res) => {
         deckOfCards.splice(randOne, 1)
 
         let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
-        
-        console.log(playerOne)
-        console.log(totalHand)
-        if(totalHand < 21){
-            res.status(200).send(playerOne)
-        } else if(totalHand === 21) {
-            res.status(200).send('Player BlackJack!')
-        } else{
-            res.status(200).send('Player Bust!')
-        }
+        let results = [playerOne, totalHand]
+        // console.log(playerOne)
+        // console.log(totalHand)
+        // if(totalHand < 21){
+            res.status(200).send(results)
+        // } else if(totalHand === 21) {
+        //     res.status(200).send('Player BlackJack!')
+        // } else{
+        //     res.status(200).send('Player Bust!')
+        // }
     },
 
 stay: (req, res) => {
@@ -160,20 +160,25 @@ stay: (req, res) => {
         let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
         console.log(totalDealerHand)
         
-        if(totalDealerHand < 17){
+        do{
             let dealTwo = Math.floor(Math.random() * deckOfCards.length)
             let dealerPlayTwo = deckOfCards[dealTwo]
             dealer.push(dealerPlayTwo)
             deckOfCards.splice(dealTwo, 1)
+            totalDealerHand += dealerPlayTwo.value
+            console.log(totalDealerHand)
         }
-        console.log(dealer)
-         if(totalDealerHand >= 17 && totalDealerHand < 21) {
+        while(totalDealerHand < 17);
+        
+        // console.log(dealer)
+        // console.log(totalDealerHand)
+        //  if(totalDealerHand >= 17 && totalDealerHand < 21) {
             res.status(200).send(`Dealer has ${totalDealerHand}`)
         // } else if(totalDealerHand === 21){
         //     res.status(200).send(`Dealer has BlackJack!`)
         // } else{
         //     res.status(200).send(`Dealer bust!`)
-        }
+        // }
     },
 
 playAgain: (req, res) => {
