@@ -105,6 +105,18 @@ function shuffle(array) {
     return array;
 }
 
+function aceValue() {
+    let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
+    let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
+    let types = ['S', 'H', 'D', 'C']
+    for(let i = 0; i < types.length; i++){
+        if(dealer.includes('ace') && totalDealerHand < 21){
+
+    }
+
+    }
+}
+
 module.exports = {
 
 dealCards: (req, res) => {
@@ -156,7 +168,7 @@ stay: (req, res) => {
     burnDeck();
         
         // console.log(totalDealerHand)
-        
+        let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
         let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
         console.log(totalDealerHand)
         
@@ -170,10 +182,11 @@ stay: (req, res) => {
         }
         while(totalDealerHand < 17);
         
+        let totals = [totalHand, totalDealerHand, dealer]
         // console.log(dealer)
         // console.log(totalDealerHand)
         //  if(totalDealerHand >= 17 && totalDealerHand < 21) {
-            res.status(200).send(`Dealer has ${totalDealerHand}`)
+            res.status(200).send(totals)
         // } else if(totalDealerHand === 21){
         //     res.status(200).send(`Dealer has BlackJack!`)
         // } else{

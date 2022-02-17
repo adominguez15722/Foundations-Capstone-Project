@@ -9,6 +9,7 @@ const howBtn = document.querySelector('#how')
 const playerHand = document.querySelector('#player_hand')
 const dealerHand = document.querySelector('#dealer_hand')
 const imageDiv = document.querySelector('#card_images')
+const vidSpan = document.querySelector('#dumb')
 
 function disableAtStart() {
     hitBtn.disabled = true;
@@ -80,6 +81,22 @@ function updatePlayerTotal(dataArr) {
     playerHand.textContent = `You received the ${dealtCard[total - 1].name} of ${dealtCard[total - 1].type} and your new total is ${dataArr[1]}.`
 }
 
+function updateDealerTotal(dataArr) {
+    let playerCardsTotal = dataArr[0]
+    let dealerCardsTotal = dataArr[1]
+    let dealerCards = dataArr[2]
+    function showVid(){
+        vidSpan.style.display = 'block'
+    }
+  
+    playerCardsTotal = 5
+    console.log(playerCardsTotal)
+    if(playerCardsTotal === 5){
+        showVid()
+    } 
+    // hideVid()
+}
+
 dealBtn.addEventListener('click', () => {
     axios
         .get('/cards')
@@ -105,8 +122,10 @@ hitBtn.addEventListener('click', () => {
 stayBtn.addEventListener('click', () => {
     axios
         .get('/stay')
-        .then(res => console.log(res.data))
+        .then(res => updateDealerTotal(res.data))
         .catch(errCallback)
+        hitBtn.disabled = true;
+        stayBtn.disabled = true;
 })
 playAgainBtn.addEventListener('click', () => {
     imageDiv.innerHTML = ""
@@ -121,6 +140,12 @@ playAgainBtn.addEventListener('click', () => {
     hitBtn.disabled = true;
     stayBtn.disabled = true;
     playAgainBtn.disabled = true;
+
+    function hideVid(){
+        vidSpan.style.display = 'none'
+        // vidSpan.setAttribute('src', "")
+    }
+    hideVid()
 })
 
 histBtn.addEventListener('click', () => {
