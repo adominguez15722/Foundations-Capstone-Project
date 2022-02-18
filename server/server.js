@@ -26,6 +26,9 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/main.html'))
 })
+app.get('/landing', (req, res) => {
+    console.log('Welcome to the page')
+})
 app.get('/cards', dealCards)
 app.get('/hit', hitMe)
 app.get('/stay', stay)

@@ -108,19 +108,34 @@ function shuffle(array) {
 function aceValue() {
     let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
     let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
-    let types = ['S', 'H', 'D', 'C']
-    for(let i = 0; i < types.length; i++){
-        if(dealer.includes('ace') && totalDealerHand < 21){
-
+    
+    if(totalDealerHand <= 21){
+        aceC.value = 11
+        aceH.value = 11
+        aceD.value = 11
+        aceS.value = 11
+    }   else{
+            aceC.value = 1
+            aceH.value = 1
+            aceD.value = 1
+            aceS.value = 1
     }
-
+    if(totalHand <= 21){
+        aceC.value = 11
+        aceH.value = 11
+        aceD.value = 11
+        aceS.value = 11
+    }   else{
+            aceC.value = 1
+            aceH.value = 1
+            aceD.value = 1
+            aceS.value = 1
     }
 }
 
 module.exports = {
 
 dealCards: (req, res) => {
-
     shuffle(deckOfCards);
     burnDeck();
         
@@ -151,6 +166,7 @@ hitMe: (req, res) => {
         deckOfCards.splice(randOne, 1)
 
         let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
+        
         let results = [playerOne, totalHand]
         // console.log(playerOne)
         // console.log(totalHand)
