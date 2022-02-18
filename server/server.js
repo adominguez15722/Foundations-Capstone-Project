@@ -24,9 +24,10 @@ app.use(express.static('public'))
 //     }
 // }))
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/main.html'))
+    // res.sendFile(path.join(__dirname, '../public/main.html'))
+    res.sendFile(path.join(__dirname, '../public/landing.html'))
 })
-app.get('/landing', (req, res) => {
+app.post('/landing', (req, res) => {
     console.log('Welcome to the page')
 })
 app.get('/cards', dealCards)
