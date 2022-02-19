@@ -13,21 +13,27 @@ body {
 
 .header button {
     float: left;
-    color: #f2f2f2;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
+    width:120px;
+    height:60px;
+    text-align:center;
+    line-height:1.1em;
+    font-size:1.1em;
 }
 
-.header button {
+/* .header button {
     background-color: #ddd;
     color: black;
-}
+} */
 
-.header button.active {
-    background-color: #35654d;
-    color: white;
+.header button {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    width: 10%;
+    font-size: large;
 }
 
 h1 {
@@ -40,6 +46,7 @@ article {
     width: auto;
     max-width: 25%;
     text-indent: 2em;
+    float: left;
 }
 
 p {
@@ -62,13 +69,16 @@ footer button {
     font-size: larger;
 }
 
-#card_images {
-    display: block;
+#images {
+    display: flex;
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
-    min-height: 200px;
-    min-width: 200px;
+    width: 100%;
+    /* float: right; */
+    height: 200px;
+    width: 200px;
+    /* text-align: right; */
+    /* object-fit: cover; */
 
     /* max-width: 200px;
     max-height: 200px; */
@@ -77,3 +87,4 @@ footer button {
 #dumb {
     display: none;
 }
+

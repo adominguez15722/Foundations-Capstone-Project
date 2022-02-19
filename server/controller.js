@@ -218,6 +218,14 @@ playAgain: (req, res) => {
     
 
     res.sendStatus(200)
+},
+
+postingUser: (req, res) => {
+    const {first} = req.body
+    let newUser = {
+        title: first
+    }
+    res.status(200).send(newUser)
 }
 
 

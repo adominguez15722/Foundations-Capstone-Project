@@ -1,4 +1,4 @@
-const baseURL = `https://foundations-capstone-project.herokuapp.com/`
+const baseURL = `http:localhost:5050`
 const errCallback = err => console.log(err.response.data)
 const dealBtn = document.querySelector('#deal')
 const hitBtn = document.querySelector('#hit')
@@ -9,7 +9,9 @@ const howBtn = document.querySelector('#how')
 const playerHand = document.querySelector('#player_hand')
 const dealerHand = document.querySelector('#dealer_hand')
 const imageDiv = document.querySelector('#card_images')
+const dealDiv = document.querySelector('#dealer_images')
 const vidSpan = document.querySelector('#dumb')
+const logOutBtn = document.querySelector('#logout')
 let winCounter = 0
 
 function disableAtStart() {
@@ -23,49 +25,89 @@ function addToScreen(dataArr) {
     dealerHand.innerHTML = ""
     let playHand = dataArr[0]
     let dealHand = dataArr[1]
-    let cardPic = document.createElement('img')
-    cardPic.src = "./images/deck_of_cards.jpeg"
-    imageDiv.appendChild(cardPic)
+    // let cardPic = document.createElement('img')
+    // cardPic.src = "./images/deck_of_cards.jpeg"
+    // imageDiv.appendChild(cardPic)
 
     playerHand.textContent = `You received the ${playHand[0].name} of ${playHand[0].type} and ${playHand[1].name} of ${playHand[1].type} for a total of ${playHand[0].value + playHand[1].value}.`
     
     dealerHand.textContent = `The dealer received the ${dealHand[0].name} of ${dealHand[0].type} and ${dealHand[1].name} of ${dealHand[1].type}.`
 
-    if(playHand[0].name === 'Ace' && playHand[0].type === 'Clubs'){
-        let cardPic = document.createElement('img')
-        cardPic.src = "./images/aceC.jpg"
-        imageDiv.appendChild(cardPic)
-    } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Diamonds'){
-        let cardPic = document.createElement('img')
-        cardPic.src = "./images/aceD.jpg"
-        imageDiv.appendChild(cardPic)
-    } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Spades'){
-        let cardPic = document.createElement('img')
-        cardPic.src = "./images/aceS.jpg"
-        imageDiv.appendChild(cardPic)
-    } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Hearts'){
-        let cardPic = document.createElement('img')
-        cardPic.src = "./images/aceH.jpg"
-        imageDiv.appendChild(cardPic)
+    let cardName = ['Ace','Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
+    let cardType = ['Clubs', 'Spades', 'Hearts', 'Diamonds']
+
+    for(let i = 0; i < cardName.length; i++){
+        for(let j = 0; j < cardType.length; j++){
+            if(dealHand[0].name === cardName[i] && dealHand[0].type === cardType[j]){
+                let cardPic = document.createElement('img')
+                let firstChar = cardType[j].charAt(0)
+                cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                dealDiv.appendChild(cardPic)
+            }
+        }
     }
+    let deckPic = document.createElement('img')
+    deckPic.src = "./images/deck_of_cards.jpeg"
+    dealDiv.appendChild(deckPic)
+
+    for(let i = 0; i < cardName.length; i++){
+        for(let j = 0; j < cardType.length; j++){
+            if(playHand[0].name === cardName[i] && playHand[0].type === cardType[j]){
+                let cardPic = document.createElement('img')
+                let firstChar = cardType[j].charAt(0)
+                cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                imageDiv.appendChild(cardPic)
+            }
+        }
+    }
+    for(let i = 0; i < cardName.length; i++){
+        for(let j = 0; j < cardType.length; j++){
+            if(playHand[1].name === cardName[i] && playHand[1].type === cardType[j]){
+                let cardPic = document.createElement('img')
+                let firstChar = cardType[j].charAt(0)
+                cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                imageDiv.appendChild(cardPic)
+            }
+        }
+    }
+
+
+
+    // if(playHand[0].name === 'Ace' && playHand[0].type === 'Clubs'){
+    //     let cardPic = document.createElement('img')
+    //     cardPic.src = "./images/aceC.jpg"
+    //     imageDiv.appendChild(cardPic)
+    // } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Diamonds'){
+    //     let cardPic = document.createElement('img')
+    //     cardPic.src = "./images/aceD.jpg"
+    //     imageDiv.appendChild(cardPic)
+    // } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Spades'){
+    //     let cardPic = document.createElement('img')
+    //     cardPic.src = "./images/aceS.jpg"
+    //     imageDiv.appendChild(cardPic)
+    // } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Hearts'){
+    //     let cardPic = document.createElement('img')
+    //     cardPic.src = "./images/aceH.jpg"
+    //     imageDiv.appendChild(cardPic)
+    // }
     
-    if(playHand[1].name === 'Ace' && playHand[1].type === 'Clubs'){
-        let cardPic = document.createElement('img')
-        cardPic.src = "./images/aceC.jpg"
-        imageDiv.appendChild(cardPic)
-    } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Diamonds'){
-        let cardPic = document.createElement('img')
-        cardPic.src = "./images/aceD.jpg"
-        imageDiv.appendChild(cardPic)
-    } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Spades'){
-        let cardPic = document.createElement('img')
-        cardPic.src = "./images/aceS.jpg"
-        imageDiv.appendChild(cardPic)
-    } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Hearts'){
-        let cardPic = document.createElement('img')
-        cardPic.src = "./images/aceH.jpg"
-        imageDiv.appendChild(cardPic)
-    }
+    // if(playHand[1].name === 'Ace' && playHand[1].type === 'Clubs'){
+    //     let cardPic = document.createElement('img')
+    //     cardPic.src = "./images/aceC.jpg"
+    //     imageDiv.appendChild(cardPic)
+    // } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Diamonds'){
+    //     let cardPic = document.createElement('img')
+    //     cardPic.src = "./images/aceD.jpg"
+    //     imageDiv.appendChild(cardPic)
+    // } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Spades'){
+    //     let cardPic = document.createElement('img')
+    //     cardPic.src = "./images/aceS.jpg"
+    //     imageDiv.appendChild(cardPic)
+    // } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Hearts'){
+    //     let cardPic = document.createElement('img')
+    //     cardPic.src = "./images/aceH.jpg"
+    //     imageDiv.appendChild(cardPic)
+    // }
 }
 
 function updatePlayerTotal(dataArr) {
@@ -155,6 +197,9 @@ playAgainBtn.addEventListener('click', () => {
     imageDiv.innerHTML = ""
     playerHand.textContent = ""
     dealerHand.textContent = ""
+    imageDiv.innerHTML = ""
+    dealDiv.innerHTML = ""
+    
     axios
         .get('/again')
         .then(res => console.log(res.data))
@@ -173,6 +218,7 @@ playAgainBtn.addEventListener('click', () => {
 })
 
 histBtn.addEventListener('click', () => {
+    howBtn.disabled = false;
     const articleOne = document.querySelector('#article')
     articleOne.innerHTML = ""
     articleOne.textContent = "There is actually a theory that Blackjack is an invention by the Romans. The theory stands because Romans loved to gamble, but it is not confirmed. It is believed that Romans played this game with wooden blocks with different numbers painted on them, instead of paper cards. return \r\n";
@@ -180,9 +226,11 @@ histBtn.addEventListener('click', () => {
     articleOne.textContent += "Besides the various versions of Vingt-et-Un, the popularity of the card games expanded through North America. The card game has made it to the American shore in the 18th century with the help of French colonists. The game could not spread and develop in France in the 19th century. However, during this time the game evolved and gained popularity in America. The game would be seen in New Orleans in 1820 at the legalized gambling halls. Interesting enough, during this time the rules were different than the contemporary Blackjack we now know. For instance in the earlier form of Blackjack only the dealer was allowed to double. return \r\n"; 
     
     articleOne.textContent += "Also during this time, there was a tale of Eleanor Dumont. She was born in France and immigrated to America. She was a skilled dealer and was traveling around until she opened a gambling hall in Nevada City, California. Ironically, the place was named Vingt-et-Un. People were coming from all around the country to play against Eleanor, just because she was considered a rarity between card dealers."
+    histBtn.disabled = true
 })
 
 howBtn.addEventListener('click', () => {
+    histBtn.disabled = false;
     const articleOne = document.querySelector('#article')
     articleOne.innerHTML = ""
     articleOne.textContent = `Step 1: Get your cards dealt
@@ -204,6 +252,15 @@ howBtn.addEventListener('click', () => {
     Step 7: The outcome
     
     You will win if the value of the cards in your hand are higher than the dealers or is equal to 21. If the value of your hand is lower than the dealers or cross 21 than you will lose to the dealer.`
+    howBtn.disabled = true;
+})
+
+logOutBtn.addEventListener('click', () => {
+    axios
+        .get('/')
+        .then(res => 
+            window.location.href = './landing.html')
+        .catch(err => console.log(err.response.data))
 })
 
 disableAtStart();
