@@ -12,12 +12,14 @@ const imageDiv = document.querySelector('#card_images')
 const dealDiv = document.querySelector('#dealer_images')
 const vidSpan = document.querySelector('#dumb')
 const logOutBtn = document.querySelector('#logout')
+const easterEgg = document.querySelector('#easter_egg')
 let winCounter = 0
 
 function disableAtStart() {
     hitBtn.disabled = true;
     stayBtn.disabled = true;
     playAgainBtn.disabled = true;
+    dealBtn.disabled = true;
 }
 
 function addToScreen(dataArr) {
@@ -27,12 +29,15 @@ function addToScreen(dataArr) {
     let dealHand = dataArr[1]
     // let cardPic = document.createElement('img')
     // cardPic.src = "./images/deck_of_cards.jpeg"
+    // 
     // imageDiv.appendChild(cardPic)
 
     playerHand.textContent = `You received the ${playHand[0].name} of ${playHand[0].type} and ${playHand[1].name} of ${playHand[1].type} for a total of ${playHand[0].value + playHand[1].value}.`
     
     dealerHand.textContent = `The dealer received the ${dealHand[0].name} of ${dealHand[0].type} and ${dealHand[1].name} of ${dealHand[1].type}.`
 
+    easterEgg.textContent = `If you're feeling lucky, press the I'll stay button when your card total is 5...`
+    
     let cardName = ['Ace','Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
     let cardType = ['Clubs', 'Spades', 'Hearts', 'Diamonds']
 
@@ -46,9 +51,9 @@ function addToScreen(dataArr) {
             }
         }
     }
-    let deckPic = document.createElement('img')
-    deckPic.src = "./images/deck_of_cards.jpeg"
-    dealDiv.appendChild(deckPic)
+    // let deckPic = document.createElement('img')
+    // deckPic.src = "./images/deck_of_cards.jpeg"
+    // dealDiv.appendChild(deckPic)
 
     for(let i = 0; i < cardName.length; i++){
         for(let j = 0; j < cardType.length; j++){
@@ -71,43 +76,6 @@ function addToScreen(dataArr) {
         }
     }
 
-
-
-    // if(playHand[0].name === 'Ace' && playHand[0].type === 'Clubs'){
-    //     let cardPic = document.createElement('img')
-    //     cardPic.src = "./images/aceC.jpg"
-    //     imageDiv.appendChild(cardPic)
-    // } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Diamonds'){
-    //     let cardPic = document.createElement('img')
-    //     cardPic.src = "./images/aceD.jpg"
-    //     imageDiv.appendChild(cardPic)
-    // } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Spades'){
-    //     let cardPic = document.createElement('img')
-    //     cardPic.src = "./images/aceS.jpg"
-    //     imageDiv.appendChild(cardPic)
-    // } else if (playHand[0].name === 'Ace' && playHand[0].type === 'Hearts'){
-    //     let cardPic = document.createElement('img')
-    //     cardPic.src = "./images/aceH.jpg"
-    //     imageDiv.appendChild(cardPic)
-    // }
-    
-    // if(playHand[1].name === 'Ace' && playHand[1].type === 'Clubs'){
-    //     let cardPic = document.createElement('img')
-    //     cardPic.src = "./images/aceC.jpg"
-    //     imageDiv.appendChild(cardPic)
-    // } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Diamonds'){
-    //     let cardPic = document.createElement('img')
-    //     cardPic.src = "./images/aceD.jpg"
-    //     imageDiv.appendChild(cardPic)
-    // } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Spades'){
-    //     let cardPic = document.createElement('img')
-    //     cardPic.src = "./images/aceS.jpg"
-    //     imageDiv.appendChild(cardPic)
-    // } else if (playHand[1].name === 'Ace' && playHand[1].type === 'Hearts'){
-    //     let cardPic = document.createElement('img')
-    //     cardPic.src = "./images/aceH.jpg"
-    //     imageDiv.appendChild(cardPic)
-    // }
 }
 
 function updatePlayerTotal(dataArr) {
@@ -124,15 +92,46 @@ function updatePlayerTotal(dataArr) {
     } else{
         playerHand.textContent = `You received the ${dealtCard[total - 1].name} of ${dealtCard[total - 1].type} and your new total is ${dataArr[1]}.`
     }
+    let cardName = ['Ace','Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
+    let cardType = ['Clubs', 'Spades', 'Hearts', 'Diamonds']
+
+    for(let i = 0; i < cardName.length; i++){
+        for(let j = 0; j < cardType.length; j++){
+            if(dealtCard[total - 1].name === cardName[i] && dealtCard[0].type === cardType[j]){
+                let cardPic = document.createElement('img')
+                let firstChar = cardType[j].charAt(0)
+                cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                imageDiv.appendChild(cardPic)
+            }
+        }
+    }
 }
 
 function updateDealerTotal(dataArr) {
     let playerCardsTotal = dataArr[0]
     let dealerCardsTotal = dataArr[1]
     let dealerCards = dataArr[2]
+    console.log(dealerCardsTotal)
     console.log(dealerCards)
     function showVid(){
         vidSpan.style.display = 'block'
+    }
+
+    let cardName = ['Ace','Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
+    let cardType = ['Clubs', 'Spades', 'Hearts', 'Diamonds']
+    let dealLength = dataArr[2].length
+
+    for(let i = 0; i < cardName.length; i++){
+        for(let j = 0; j < cardType.length; j++){
+            for(let k = 1; k < dealLength; k++){
+                if(dealerCards[k].name === cardName[i] && dealerCards[k].type === cardType[j]){
+                    let cardPic = document.createElement('img')
+                    let firstChar = cardType[j].charAt(0)
+                    cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                    dealDiv.appendChild(cardPic)
+                }
+            }
+        }
     }
     
     if(playerCardsTotal === 5){
@@ -199,6 +198,7 @@ playAgainBtn.addEventListener('click', () => {
     dealerHand.textContent = ""
     imageDiv.innerHTML = ""
     dealDiv.innerHTML = ""
+    easterEgg.innerHTML = ""
     
     axios
         .get('/again')
@@ -226,7 +226,8 @@ histBtn.addEventListener('click', () => {
     articleOne.textContent += "Besides the various versions of Vingt-et-Un, the popularity of the card games expanded through North America. The card game has made it to the American shore in the 18th century with the help of French colonists. The game could not spread and develop in France in the 19th century. However, during this time the game evolved and gained popularity in America. The game would be seen in New Orleans in 1820 at the legalized gambling halls. Interesting enough, during this time the rules were different than the contemporary Blackjack we now know. For instance in the earlier form of Blackjack only the dealer was allowed to double. return \r\n"; 
     
     articleOne.textContent += "Also during this time, there was a tale of Eleanor Dumont. She was born in France and immigrated to America. She was a skilled dealer and was traveling around until she opened a gambling hall in Nevada City, California. Ironically, the place was named Vingt-et-Un. People were coming from all around the country to play against Eleanor, just because she was considered a rarity between card dealers."
-    histBtn.disabled = true
+    histBtn.disabled = true;
+    dealBtn.disabled = false;
 })
 
 howBtn.addEventListener('click', () => {
@@ -253,6 +254,7 @@ howBtn.addEventListener('click', () => {
     
     You will win if the value of the cards in your hand are higher than the dealers or is equal to 21. If the value of your hand is lower than the dealers or cross 21 than you will lose to the dealer.`
     howBtn.disabled = true;
+    dealBtn.disabled = false;
 })
 
 logOutBtn.addEventListener('click', () => {

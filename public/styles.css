@@ -47,10 +47,38 @@ article {
     max-width: 25%;
     text-indent: 2em;
     float: left;
+    font-size: large;
+    font-weight: bold;
 }
 
 p {
-    color: white;
+    color: black;
+    font-size: x-large;
+    position: fixed;
+    /* left: ; */
+    font-weight: bold;
+    /* bottom: 2%; */
+    /* line-height: .25em; */
+    text-align: center;
+    /* top: 450px; */
+    /* left: -250px; */
+    bottom: 2.5%;
+    left: 31%;
+    white-space: normal;
+    /* height: 10%; */
+    /* margin-bottom: 10em; */
+    /* z-index: 1; */
+
+}
+
+#dealer_hand{
+    height: 8%;
+}
+#player_hand{
+    height: 5.5%;
+}
+#easter_egg{
+    height: 3%;
 }
 
 footer {
@@ -73,18 +101,41 @@ footer button {
     display: flex;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
-    /* float: right; */
-    height: 200px;
-    width: 200px;
-    /* text-align: right; */
-    /* object-fit: cover; */
+}
 
+#dealer_images {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+
+
+}
+
+
+
+    /* text-align: right; */
     /* max-width: 200px;
     max-height: 200px; */
+/* } */
+
+/* #dealer_images {
+    float: center;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
 }
+#card_images {
+    float: center;
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+} */
 
 #dumb {
     display: none;
+    position: absolute;
+    margin-left: 50vw;
+    transform: translate(-50%);
+    z-index: 1;
 }
 
