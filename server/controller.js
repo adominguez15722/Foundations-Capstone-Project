@@ -188,16 +188,10 @@ hitMe: (req, res) => {
 
 stay: (req, res) => {
     burnDeck();
-        // let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
-        aceValue(totalHand());
-        // let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
-        aceValue(totalDealerHand())
+    aceValue(totalHand());
+    aceValue(totalDealerHand())
 
-    // function dealAceValue() {
-    //     for(let i = 0; i < dealer.length; i++){
 
-    //     }
-    // }
         while(totalDealerHand() < 17)
         {
             let newTotal = totalDealerHand()
@@ -207,22 +201,14 @@ stay: (req, res) => {
             deckOfCards.splice(dealTwo, 1)
             newTotal += dealerPlayTwo.value
             aceValue(totalDealerHand())
-            // console.log(totalDealerHand)
         }
-        // console.log(totalDealerHand())
-        // console.log(dealer)
+    
         let totals = [totalHand(), totalDealerHand(), dealer]
         console.log(totals)
-        // console.log(dealer)
-        // console.log(totalDealerHand)
-        //  if(totalDealerHand >= 17 && totalDealerHand < 21) {
+
             res.status(200).send(totals)
-        // } else if(totalDealerHand === 21){
-        //     res.status(200).send(`Dealer has BlackJack!`)
-        // } else{
-        //     res.status(200).send(`Dealer bust!`)
-        // }
-    },
+    
+},
 
 playAgain: (req, res) => {
     

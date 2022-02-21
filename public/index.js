@@ -14,8 +14,15 @@ const vidSpan = document.querySelector('#dumb')
 const logOutBtn = document.querySelector('#logout')
 const easterEgg = document.querySelector('#easter_egg')
 const winCount = document.querySelector('#win_count')
+const loginName = localStorage.getItem("loginName")
+const pageTitle = document.querySelector('#title')
 let winCounter = 0
 
+function setTitle() {
+    pageTitle.innerHTML = ""
+    let titleName = loginName.toUpperCase()
+    pageTitle.textContent = `WELCOME ${titleName} TO THE BLACKJACK TABLE`
+}
 function increment() {
     winCounter = ++winCounter
 }
@@ -281,3 +288,4 @@ logOutBtn.addEventListener('click', () => {
 })
 
 disableAtStart();
+setTitle();

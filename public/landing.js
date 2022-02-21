@@ -8,13 +8,13 @@ subBtn.addEventListener('click', (evt) =>{
       first: title.value
     }
     axios
+        .post('/landing', usersName)
+        .then(res => localStorage.setItem("loginName", `${(res.data).title}`))
+        .catch(err => console.log(err.response.data))
+    axios
         .get('/main')
         .then(res => 
             window.location.href = './main.html')
-        .catch(err => console.log(err.response.data))
-    axios
-        .post('/landing', usersName)
-        .then(res => console.log(res.data))
         .catch(err => console.log(err.response.data))
 
 
