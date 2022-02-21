@@ -33,10 +33,10 @@ function addToScreen(dataArr) {
     winCount.innerHTML = ""
     let playHand = dataArr[0]
     let dealHand = dataArr[1]
-    // let cardPic = document.createElement('img')
-    // cardPic.src = "./images/deck_of_cards.jpeg"
-    // 
-    // imageDiv.appendChild(cardPic)
+    let cardPic = document.createElement('img')
+    cardPic.src = "./images/deck_of_cards.jpeg"
+    cardPic.setAttribute('class', 'cardPic')
+    dealDiv.appendChild(cardPic)
 
     playerHand.textContent = `You received the ${playHand[0].name} of ${playHand[0].type} and ${playHand[1].name} of ${playHand[1].type} for a total of ${playHand[0].value + playHand[1].value}.`
     
@@ -60,9 +60,7 @@ function addToScreen(dataArr) {
             }
         }
     }
-    // let deckPic = document.createElement('img')
-    // deckPic.src = "./images/deck_of_cards.jpeg"
-    // dealDiv.appendChild(deckPic)
+    
 
     for(let i = 0; i < cardName.length; i++){
         for(let j = 0; j < cardType.length; j++){
@@ -133,9 +131,10 @@ function updateDealerTotal(dataArr) {
     let cardType = ['Clubs', 'Spades', 'Hearts', 'Diamonds']
     let dealLength = dataArr[2].length
 
+    dealDiv.innerHTML = ""
     for(let i = 0; i < cardName.length; i++){
         for(let j = 0; j < cardType.length; j++){
-            for(let k = 1; k < dealLength; k++){
+            for(let k = 0; k < dealLength; k++){
                 if(dealerCards[k].name === cardName[i] && dealerCards[k].type === cardType[j]){
                     let cardPic = document.createElement('img')
                     cardPic.setAttribute('class', 'cardPic')

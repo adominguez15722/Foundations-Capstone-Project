@@ -101,6 +101,7 @@ footer button {
     display: flex;
     justify-content: space-between;
     width: 1000px;
+    margin-top: 10%;
     /* margin-left: auto;
     margin-right: auto; */
     /* object-fit: cover; */

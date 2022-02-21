@@ -71,6 +71,10 @@ let result = [];
 let discard = [];
 let playerOne = [];
 let dealer = [];
+let totalHand = () => playerOne.reduce((prev, cur) => prev + +cur.value, 0);
+let totalDealerHand = () => dealer.reduce((prev, cur) => prev + +cur.value, 0);
+
+
 
 function burnDeck()  {
         
@@ -105,26 +109,25 @@ function shuffle(array) {
     return array;
 }
 
-function aceValue() {
-    let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
-    let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
+function aceValue(total) {
+    // let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
+    // let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
     
-    if(totalDealerHand <= 21){
+    if(total <= 21){
         aceC.value = 11
         aceH.value = 11
         aceD.value = 11
         aceS.value = 11
-    }   else{
-            aceC.value = 1
-            aceH.value = 1
-            aceD.value = 1
-            aceS.value = 1
-    }
-    if(totalHand <= 21){
-        aceC.value = 11
-        aceH.value = 11
-        aceD.value = 11
-        aceS.value = 11
+    // }   else if(totalHand <= 21){
+    //         aceC.value = 11
+    //         aceH.value = 11
+    //         aceD.value = 11
+    //         aceS.value = 11
+    // if(totalHand <= 21){
+    //     aceC.value = 11
+    //     aceH.value = 11
+    //     aceD.value = 11
+    //     aceS.value = 11
     }   else{
             aceC.value = 1
             aceH.value = 1
@@ -138,37 +141,40 @@ module.exports = {
 dealCards: (req, res) => {
     shuffle(deckOfCards);
     burnDeck();
-    aceValue();
-        
-        for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 2; i++) {
         
         let randOne = Math.floor(Math.random() * deckOfCards.length)
         let randPlayOne = deckOfCards[randOne]
         playerOne.push(randPlayOne)
         deckOfCards.splice(randOne, 1)
-
+        
         let dealTwo = Math.floor(Math.random() * deckOfCards.length)
         let dealerPlayTwo = deckOfCards[dealTwo]
         dealer.push(dealerPlayTwo)
         deckOfCards.splice(dealTwo, 1)
-        }
-        let results = [playerOne, dealer]
+    }
+    // let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
+    // let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
+
+
+    aceValue(totalHand());
+    aceValue(totalDealerHand());
+    let results = [playerOne, dealer]
 
     res.status(200).send(results)
     
     },
     
 hitMe: (req, res) => {
-    aceValue();
     burnDeck();
-        let randOne = Math.floor(Math.random() * deckOfCards.length)
-        let randPlayOne = deckOfCards[randOne]
-        playerOne.push(randPlayOne)
-        deckOfCards.splice(randOne, 1)
-
-        let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
-        
-        let results = [playerOne, totalHand]
+    aceValue(totalHand())
+    let randOne = Math.floor(Math.random() * deckOfCards.length)
+    let randPlayOne = deckOfCards[randOne]
+    playerOne.push(randPlayOne)
+    deckOfCards.splice(randOne, 1)
+    
+        aceValue(totalHand());
+        let results = [playerOne, totalHand()]
         // console.log(playerOne)
         // console.log(totalHand)
         // if(totalHand < 21){
@@ -181,24 +187,32 @@ hitMe: (req, res) => {
     },
 
 stay: (req, res) => {
-    aceValue();    
     burnDeck();
-        
-        // console.log(totalDealerHand)
-        let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
-        let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
-        // console.log(totalDealerHand)
-        while(totalDealerHand < 17)
+        // let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
+        aceValue(totalHand());
+        // let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
+        aceValue(totalDealerHand())
+
+    // function dealAceValue() {
+    //     for(let i = 0; i < dealer.length; i++){
+
+    //     }
+    // }
+        while(totalDealerHand() < 17)
         {
+            let newTotal = totalDealerHand()
             let dealTwo = Math.floor(Math.random() * deckOfCards.length)
             let dealerPlayTwo = deckOfCards[dealTwo]
             dealer.push(dealerPlayTwo)
             deckOfCards.splice(dealTwo, 1)
-            totalDealerHand += dealerPlayTwo.value
+            newTotal += dealerPlayTwo.value
+            aceValue(totalDealerHand())
             // console.log(totalDealerHand)
         }
-        
-        let totals = [totalHand, totalDealerHand, dealer]
+        // console.log(totalDealerHand())
+        // console.log(dealer)
+        let totals = [totalHand(), totalDealerHand(), dealer]
+        console.log(totals)
         // console.log(dealer)
         // console.log(totalDealerHand)
         //  if(totalDealerHand >= 17 && totalDealerHand < 21) {
