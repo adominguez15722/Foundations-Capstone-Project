@@ -61,8 +61,8 @@ function addToScreen(dataArr) {
             if(dealHand[0].name === cardName[i] && dealHand[0].type === cardType[j]){
                 let cardPic = document.createElement('img')
                 cardPic.setAttribute('class', 'cardPic')
-                let firstChar = cardType[j].toLowerCase().charAt(0)
-                cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                let firstChar = cardType[j].charAt(0)
+                cardPic.src = `./images/${cardName[i].toLowerCase()}${firstChar}.jpg`
                 dealDiv.appendChild(cardPic)
             }
         }
@@ -74,8 +74,8 @@ function addToScreen(dataArr) {
             if(playHand[0].name === cardName[i] && playHand[0].type === cardType[j]){
                 let cardPic = document.createElement('img')
                 cardPic.setAttribute('class', 'cardPic')
-                let firstChar = cardType[j].toLowerCase().charAt(0)
-                cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                let firstChar = cardType[j].charAt(0)
+                cardPic.src = `./images/${cardName[i].toLowerCase()}${firstChar}.jpg`
                 imageDiv.appendChild(cardPic)
             }
         }
@@ -85,8 +85,8 @@ function addToScreen(dataArr) {
             if(playHand[1].name === cardName[i] && playHand[1].type === cardType[j]){
                 let cardPic = document.createElement('img')
                 cardPic.setAttribute('class', 'cardPic')
-                let firstChar = cardType[j].toLowerCase().charAt(0)
-                cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                let firstChar = cardType[j].charAt(0)
+                cardPic.src = `./images/${cardName[i].toLowerCase()}${firstChar}.jpg`
                 imageDiv.appendChild(cardPic)
             }
         }
@@ -116,8 +116,8 @@ function updatePlayerTotal(dataArr) {
             if(dealtCard[total - 1].name === cardName[i] && dealtCard[0].type === cardType[j]){
                 let cardPic = document.createElement('img')
                 cardPic.setAttribute('class', 'cardPic')
-                let firstChar = cardType[j].toLowerCase().charAt(0)
-                cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                let firstChar = cardType[j].charAt(0)
+                cardPic.src = `./images/${cardName[i].toLowerCase()}${firstChar}.jpg`
                 imageDiv.appendChild(cardPic)
             }
         }
@@ -145,8 +145,8 @@ function updateDealerTotal(dataArr) {
                 if(dealerCards[k].name === cardName[i] && dealerCards[k].type === cardType[j]){
                     let cardPic = document.createElement('img')
                     cardPic.setAttribute('class', 'cardPic')
-                    let firstChar = cardType[j].toLowerCase().charAt(0)
-                    cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
+                    let firstChar = cardType[j].charAt(0)
+                    cardPic.src = `./images/${cardName[i].toLowerCase()}${firstChar}.jpg`
                     dealDiv.appendChild(cardPic)
                 }
             }
