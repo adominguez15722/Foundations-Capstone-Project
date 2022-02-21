@@ -61,7 +61,7 @@ function addToScreen(dataArr) {
             if(dealHand[0].name === cardName[i] && dealHand[0].type === cardType[j]){
                 let cardPic = document.createElement('img')
                 cardPic.setAttribute('class', 'cardPic')
-                let firstChar = cardType[j].charAt(0)
+                let firstChar = cardType[j].toLocaleLowerCase().charAt(0)
                 cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
                 dealDiv.appendChild(cardPic)
             }
