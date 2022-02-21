@@ -128,8 +128,6 @@ function updateDealerTotal(dataArr) {
     let playerCardsTotal = dataArr[0]
     let dealerCardsTotal = dataArr[1]
     let dealerCards = dataArr[2]
-    console.log(dealerCardsTotal)
-    console.log(dealerCards)
     function showVid(){
         vidSpan.style.display = 'block'
     }

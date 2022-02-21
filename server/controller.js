@@ -6,7 +6,7 @@ constructor(name, type, value) {
     }
 }
 
-let aceS = new Cards('Ace', 'Spades', 1);
+let aceS = new Cards('Ace', 'Spades', 11);
 let twoS = new Cards('Two', 'Spades', 2);
 let threeS = new Cards('Three', 'Spades', 3);
 let fourS = new Cards('Four', 'Spades', 4);
@@ -21,7 +21,7 @@ let queenS = new Cards('Queen', 'Spades', 10);
 let kingS = new Cards('King', 'Spades', 10);
 
 
-let aceD = new Cards('Ace', 'Diamonds', 1);
+let aceD = new Cards('Ace', 'Diamonds', 11);
 let twoD = new Cards('Two', 'Diamonds', 2);
 let threeD = new Cards('Three', 'Diamonds', 3);
 let fourD = new Cards('Four', 'Diamonds', 4);
@@ -36,7 +36,7 @@ let queenD = new Cards('Queen', 'Diamonds', 10);
 let kingD = new Cards('King', 'Diamonds', 10);
 
 
-let aceH = new Cards('Ace', 'Hearts', 1);
+let aceH = new Cards('Ace', 'Hearts', 11);
 let twoH = new Cards('Two', 'Hearts', 2);
 let threeH = new Cards('Three', 'Hearts', 3);
 let fourH = new Cards('Four', 'Hearts', 4);
@@ -51,7 +51,7 @@ let queenH = new Cards('Queen', 'Hearts', 10);
 let kingH = new Cards('King', 'Hearts', 10);
 
 
-let aceC = new Cards('Ace', 'Clubs', 1);
+let aceC = new Cards('Ace', 'Clubs', 11);
 let twoC = new Cards('Two', 'Clubs', 2);
 let threeC = new Cards('Three', 'Clubs', 3);
 let fourC = new Cards('Four', 'Clubs', 4);
@@ -109,9 +109,31 @@ function shuffle(array) {
     return array;
 }
 
+
+function newAce(total) {
+    for(let i = 0; i < total.length; i++){
+        if(total[i].name === 'Ace' && totalHand() > 21){
+            total[i].value = 1
+        }   else if(total[i].name === 'Ace' && totalHand() <= 21){
+            total[i].value = 11
+        }
+    }
+}
+function newAceDealer(total) {
+    for(let i = 0; i < total.length; i++){
+        if(total[i].name === 'Ace' && totalDealerHand() > 21){
+            total[i].value = 1
+        }   else if(total[i].name === 'Ace' && totalDealerHand() <= 21){
+            total[i].value = 11
+        }
+    }
+}
+
 function aceValue(total) {
     // let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
     // let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
+   
+    
     
     if(total <= 21){
         aceC.value = 11
@@ -156,9 +178,11 @@ dealCards: (req, res) => {
     // let totalHand = playerOne.reduce((prev, cur) => prev + +cur.value, 0);
     // let totalDealerHand = dealer.reduce((prev, cur) => prev + +cur.value, 0);
 
+    newAce(playerOne)
+    newAceDealer(dealer)
 
-    aceValue(totalHand());
-    aceValue(totalDealerHand());
+    // aceValue(totalHand());
+    // aceValue(totalDealerHand());
     let results = [playerOne, dealer]
 
     res.status(200).send(results)
@@ -167,44 +191,45 @@ dealCards: (req, res) => {
     
 hitMe: (req, res) => {
     burnDeck();
-    aceValue(totalHand())
+    newAce(playerOne)
+    console.log(playerOne)
+    // aceValue(totalHand())
     let randOne = Math.floor(Math.random() * deckOfCards.length)
     let randPlayOne = deckOfCards[randOne]
     playerOne.push(randPlayOne)
     deckOfCards.splice(randOne, 1)
     
-        aceValue(totalHand());
-        let results = [playerOne, totalHand()]
-        // console.log(playerOne)
-        // console.log(totalHand)
-        // if(totalHand < 21){
-            res.status(200).send(results)
-        // } else if(totalHand === 21) {
-        //     res.status(200).send('Player BlackJack!')
-        // } else{
-        //     res.status(200).send('Player Bust!')
-        // }
+    newAce(playerOne);
+    // aceValue(totalHand());
+    let results = [playerOne, totalHand()]
+    res.status(200).send(results)
     },
 
 stay: (req, res) => {
     burnDeck();
-    aceValue(totalHand());
-    aceValue(totalDealerHand())
+    newAce(playerOne)
+    newAceDealer(dealer)
+    // aceValue(totalHand());
+    // aceValue(totalDealerHand())
 
 
         while(totalDealerHand() < 17)
         {
+            newAceDealer(dealer)
             let newTotal = totalDealerHand()
             let dealTwo = Math.floor(Math.random() * deckOfCards.length)
             let dealerPlayTwo = deckOfCards[dealTwo]
             dealer.push(dealerPlayTwo)
             deckOfCards.splice(dealTwo, 1)
             newTotal += dealerPlayTwo.value
-            aceValue(totalDealerHand())
+            // aceValue(totalDealerHand())
+            newAceDealer(dealer)
+            console.log(dealer)
+
         }
-    
+        console.log(dealer)
         let totals = [totalHand(), totalDealerHand(), dealer]
-        console.log(totals)
+        // console.log(totals)
 
             res.status(200).send(totals)
     
