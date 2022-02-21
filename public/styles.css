@@ -99,18 +99,29 @@ footer button {
 
 #images {
     display: flex;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: space-between;
+    width: 1000px;
+    /* margin-left: auto;
+    margin-right: auto; */
+    /* object-fit: cover; */
 }
 
-#dealer_images {
+/* #dealer_images {
+    width: 400px;
+    height: 400px;
+/* }
+
+/* #card_images {
+    right: 100%;
     width: 200px;
     height: 200px;
     object-fit: cover;
+} */
 
-
+.cardPic {
+    width: 130px;
+    height: 130px;
 }
-
 
 
     /* text-align: right; */
@@ -139,3 +150,11 @@ footer button {
     z-index: 1;
 }
 
+h2 {
+    color: black;
+    position: absolute;
+    right: 2%;
+    top: 80%;
+    font-weight: bolder;
+    /* transform: translate(-50%); */
+}

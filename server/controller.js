@@ -138,6 +138,7 @@ module.exports = {
 dealCards: (req, res) => {
     shuffle(deckOfCards);
     burnDeck();
+    aceValue();
         
         for (let i = 0; i < 2; i++) {
         
@@ -158,7 +159,7 @@ dealCards: (req, res) => {
     },
     
 hitMe: (req, res) => {
-
+    aceValue();
     burnDeck();
         let randOne = Math.floor(Math.random() * deckOfCards.length)
         let randPlayOne = deckOfCards[randOne]
@@ -180,7 +181,7 @@ hitMe: (req, res) => {
     },
 
 stay: (req, res) => {
-        
+    aceValue();    
     burnDeck();
         
         // console.log(totalDealerHand)

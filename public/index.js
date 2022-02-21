@@ -13,7 +13,12 @@ const dealDiv = document.querySelector('#dealer_images')
 const vidSpan = document.querySelector('#dumb')
 const logOutBtn = document.querySelector('#logout')
 const easterEgg = document.querySelector('#easter_egg')
+const winCount = document.querySelector('#win_count')
 let winCounter = 0
+
+function increment() {
+    winCounter = ++winCounter
+}
 
 function disableAtStart() {
     hitBtn.disabled = true;
@@ -25,6 +30,7 @@ function disableAtStart() {
 function addToScreen(dataArr) {
     playerHand.innerHTML = ""
     dealerHand.innerHTML = ""
+    winCount.innerHTML = ""
     let playHand = dataArr[0]
     let dealHand = dataArr[1]
     // let cardPic = document.createElement('img')
@@ -38,6 +44,8 @@ function addToScreen(dataArr) {
 
     easterEgg.textContent = `If you're feeling lucky, press the I'll stay button when your card total is 5...`
     
+    winCount.textContent = `WIN COUNT: ${winCounter}`
+
     let cardName = ['Ace','Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
     let cardType = ['Clubs', 'Spades', 'Hearts', 'Diamonds']
 
@@ -45,6 +53,7 @@ function addToScreen(dataArr) {
         for(let j = 0; j < cardType.length; j++){
             if(dealHand[0].name === cardName[i] && dealHand[0].type === cardType[j]){
                 let cardPic = document.createElement('img')
+                cardPic.setAttribute('class', 'cardPic')
                 let firstChar = cardType[j].charAt(0)
                 cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
                 dealDiv.appendChild(cardPic)
@@ -59,6 +68,7 @@ function addToScreen(dataArr) {
         for(let j = 0; j < cardType.length; j++){
             if(playHand[0].name === cardName[i] && playHand[0].type === cardType[j]){
                 let cardPic = document.createElement('img')
+                cardPic.setAttribute('class', 'cardPic')
                 let firstChar = cardType[j].charAt(0)
                 cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
                 imageDiv.appendChild(cardPic)
@@ -69,6 +79,7 @@ function addToScreen(dataArr) {
         for(let j = 0; j < cardType.length; j++){
             if(playHand[1].name === cardName[i] && playHand[1].type === cardType[j]){
                 let cardPic = document.createElement('img')
+                cardPic.setAttribute('class', 'cardPic')
                 let firstChar = cardType[j].charAt(0)
                 cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
                 imageDiv.appendChild(cardPic)
@@ -99,6 +110,7 @@ function updatePlayerTotal(dataArr) {
         for(let j = 0; j < cardType.length; j++){
             if(dealtCard[total - 1].name === cardName[i] && dealtCard[0].type === cardType[j]){
                 let cardPic = document.createElement('img')
+                cardPic.setAttribute('class', 'cardPic')
                 let firstChar = cardType[j].charAt(0)
                 cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
                 imageDiv.appendChild(cardPic)
@@ -126,6 +138,7 @@ function updateDealerTotal(dataArr) {
             for(let k = 1; k < dealLength; k++){
                 if(dealerCards[k].name === cardName[i] && dealerCards[k].type === cardType[j]){
                     let cardPic = document.createElement('img')
+                    cardPic.setAttribute('class', 'cardPic')
                     let firstChar = cardType[j].charAt(0)
                     cardPic.src = `./images/${cardName[i]}${firstChar}.jpg`
                     dealDiv.appendChild(cardPic)
@@ -133,9 +146,9 @@ function updateDealerTotal(dataArr) {
             }
         }
     }
-    
     if(playerCardsTotal === 5){
         showVid()
+        winCounter += 1000000
     } else if(playerCardsTotal < dealerCardsTotal && dealerCardsTotal <= 21){
         // playerHand.textContent = ""
         dealerHand.textContent = `The dealer has ${dealerCardsTotal} and you have ${playerCardsTotal}. You lose.`
@@ -143,7 +156,8 @@ function updateDealerTotal(dataArr) {
     } else if(playerCardsTotal > dealerCardsTotal && playerCardsTotal <= 21){
         // playerHand.textContent = ""
         dealerHand.textContent = `The dealer has ${dealerCardsTotal} and you have ${playerCardsTotal}. You win!!`
-        winCounter++
+        increment();
+        winCount.textContent = `WIN COUNT: ${winCounter}`
 
     } else if(playerCardsTotal === dealerCardsTotal){
         // playerHand.textContent = ""
@@ -152,7 +166,8 @@ function updateDealerTotal(dataArr) {
     } else if(dealerCardsTotal > 21){
         // playerHand.textContent = ""
         dealerHand.textContent = `The dealer has ${dealerCardsTotal} and you have ${playerCardsTotal}. You win!!`
-        winCounter++
+        increment()
+        winCount.textContent = `WIN COUNT: ${winCounter}`
 
     } else if(dealerCardsTotal === 21 && playerCardsTotal < 21){
         // playerHand.textContent = ""
@@ -161,6 +176,7 @@ function updateDealerTotal(dataArr) {
 }
 
 dealBtn.addEventListener('click', () => {
+    
     axios
         .get('/cards')
         .then(res => addToScreen(res.data))
