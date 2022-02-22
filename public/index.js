@@ -278,6 +278,7 @@ howBtn.addEventListener('click', () => {
 })
 
 logOutBtn.addEventListener('click', () => {
+    pageTitle.innerHTML = ""
     axios
         .get('/')
         .then(res => 
