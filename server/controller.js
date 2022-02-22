@@ -161,10 +161,13 @@ function aceValue(total) {
 module.exports = {
 
 dealCards: (req, res) => {
+    playerOne = []
+    dealer = []
     shuffle(deckOfCards);
     burnDeck();
     for (let i = 0; i < 2; i++) {
-        
+
+
         let randOne = Math.floor(Math.random() * deckOfCards.length)
         let randPlayOne = deckOfCards[randOne]
         playerOne.push(randPlayOne)
