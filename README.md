@@ -1,4 +1,4 @@
-# Foundations-Capstone-Project
+# DevMountain Foundations-Capstone-Project
 
 Now deployed on heroku: (https://foundations-capstone-project.herokuapp.com/)
 
