@@ -47,8 +47,8 @@ function addToScreen(dataArr) {
 
     playerHand.textContent = `You received the ${playHand[0].name} of ${playHand[0].type} and ${playHand[1].name} of ${playHand[1].type} for a total of ${playHand[0].value + playHand[1].value}.`
     
-    dealerHand.textContent = `The dealer received the ${dealHand[0].name} of ${dealHand[0].type} and ${dealHand[1].name} of ${dealHand[1].type}.`
-
+    dealerHand.textContent = `The dealer received the ${dealHand[0].name} of ${dealHand[0].type}.`
+    // and ${dealHand[1].name} of ${dealHand[1].type}.
     easterEgg.textContent = `If you're feeling lucky, press the I'll stay button when your card total is 5...`
     
     winCount.textContent = `WIN COUNT: ${winCounter}`
